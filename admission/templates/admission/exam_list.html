@@ -1,0 +1,22 @@
+<h1>Exams by candidate</h1>
+
+<table border="1">
+<thead>
+    <tr>
+    <th>Candidate</th>
+    <th>Phrase</th>
+    <th>Answer</th>
+    <th>Order Code</th>
+    </tr>
+</thead>
+<tbody>
+    {% for exam in object_list %}
+    <tr>
+    <td>{{ exam.candidate }}</td>
+    <td>{{ exam.question }}</td>
+    <td>{{ exam.answer }}</td>
+    <td>{{ exam.order_code }}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>

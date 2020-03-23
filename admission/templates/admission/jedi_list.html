@@ -1,0 +1,20 @@
+<h1>Jedis</h1>
+
+<table border="1">
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Planet</th>
+    <th>View</th>
+    </tr>
+</thead>
+<tbody>
+    {% for jedi in object_list %}
+    <tr>
+    <td>{{ jedi.name }}</td>
+    <td>{{ jedi.planet }}</td>
+    <td><a href="{% url "candidate_list" %}">view candidates from my planet</a></td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
