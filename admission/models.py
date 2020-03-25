@@ -18,7 +18,7 @@ class Jedi(models.Model):
 class Candidate(models.Model):
     name = models.CharField(max_length=255)
     planet = models.ForeignKey(Planet, on_delete=models.CASCADE, related_name='cadnidates')
-    jedi = models.ForeignKey(Jedi, on_delete=models.CASCADE, related_name='candidates', null=True)
+    jedi = models.ForeignKey(Jedi, on_delete=models.CASCADE, related_name='candidates', null=True, blank=True)
 
     def __str__(self):
         return self.name

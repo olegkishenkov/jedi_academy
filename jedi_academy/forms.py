@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, HiddenInput, TextInput
 
 from admission.models import Candidate, Exam
 
@@ -11,4 +11,9 @@ class CandidateForm(ModelForm):
 class ExamForm(ModelForm):
     class Meta:
         model = Exam
-        fields = ['answer']
+        fields = ['candidate', 'question', 'answer', 'order_code']
+        widgets = {
+            'candidate': HiddenInput,
+            'question': HiddenInput,
+            'order_code': HiddenInput
+        }

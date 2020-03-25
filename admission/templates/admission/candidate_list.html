@@ -1,5 +1,5 @@
 <h1>Candidates</h1>
-
+<p>Planet: {{ planet }}</p>
 <table border="1">
 <thead>
     <tr>
@@ -16,8 +16,8 @@
     <td>{{ candidate.name }}</td>
     <td>{{ candidate.planet }}</td>
     <td>{{ candidate.jedi }}</td>
-    <td><a href="{% url "exam_list" %}">View exams by candidate</a></td>
-    <td><a href="{% url "candidate_edit" candidate.id %}">Accept candidate</a></td>
+    <td><a href="{% url "exam_list" candidate.pk %}">View exams by candidate</a></td>
+    <td><a href="{% url "candidate_edit" candidate.pk %}">Accept candidate</a></td>
     </tr>
     {% endfor %}
 </tbody>

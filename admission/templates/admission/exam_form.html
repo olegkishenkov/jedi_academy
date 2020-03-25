@@ -1,4 +1,6 @@
 <h1>New Exam</h1>
+<p>Candidate: {{ candidate }}</p>
+<p>Question: {{ question }}</p>
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit" />

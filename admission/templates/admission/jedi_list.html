@@ -13,7 +13,7 @@
     <tr>
     <td>{{ jedi.name }}</td>
     <td>{{ jedi.planet }}</td>
-    <td><a href="{% url "candidate_list" %}">view candidates from my planet</a></td>
+    <td><a href="{% url "candidate_list" jedi.planet.pk %}">view candidates from my planet</a></td>
     </tr>
     {% endfor %}
 </tbody>
