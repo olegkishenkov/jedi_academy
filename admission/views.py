@@ -24,10 +24,22 @@ class CandidateList(ListView):
         context['planet'] = Planet.objects.get(pk=self.kwargs['planet_pk'])
         return context
 
+
 class CandidateCreate(CreateView):
     model = Candidate
     fields = ['name', 'planet']
-    success_url = reverse_lazy('exam_new')
+    success_url = reverse_lazy('exam_new', args=[3])
+
+    def post(self, request, *args, **kwargs):
+        self.success_url = reverse_lazy('exam_new', args=[3])
+        value = super().post(self, request, *args, **kwargs)
+        return value
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.success_url = reverse_lazy('exam_new', args=[self.object.pk])
+        return super().form_valid(form)
+
 
 class ExamCreate(CreateView):
     model = Exam
@@ -38,7 +50,7 @@ class ExamCreate(CreateView):
         context = super().get_context_data(**kwargs)
         candidate = Candidate.objects.get(pk=self.kwargs['candidate_pk'])
         context['form'].fields['candidate'].initial = candidate.pk
-        question_pk = randbelow(Question.objects.all().count())
+        question_pk = randbelow(Question.objects.all().count()+1)+1
         question = Question.objects.get(pk=question_pk)
         context['form'].fields['question'].initial = question.pk
         context['form'].fields['order_code'].initial = '0001'
@@ -55,6 +67,7 @@ class ExamCreate(CreateView):
 class CandidateDetail(DetailView):
     model = Candidate
 
+
 class ExamList(ListView):
     model = Exam
 
@@ -67,14 +80,18 @@ class ExamList(ListView):
         context['candidate'] = Candidate.objects.get(pk=self.kwargs['candidate_pk'])
         return context
 
+
 class JediList(ListView):
     model = Jedi
+
 
 class JediDetail(DetailView):
     model = Jedi
 
+
 class CandidateDetail(DetailView):
     model = Exam
+
 
 class CandidateUpdate(UpdateView):
     model = Candidate
