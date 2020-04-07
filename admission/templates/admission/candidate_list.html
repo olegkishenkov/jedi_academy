@@ -4,6 +4,7 @@
 <thead>
     <tr>
     <th>Name</th>
+    <th>Photo</th>
     <th>Planet</th>
     <th>Jedi</th>
     <th>View exams by candidate</th>
@@ -14,6 +15,7 @@
     {% for candidate in object_list %}
     <tr>
     <td>{{ candidate.name }}</td>
+    <td>{% if candidate.photo %}<img height=50 width=50 src="{{ MEDIA_URL }}{{ candidate.photo }}" />{% endif %}</td>
     <td>{{ candidate.planet }}</td>
     <td>{{ candidate.jedi }}</td>
     <td><a href="{% url "exam_list" candidate.pk %}">View exams by candidate</a></td>

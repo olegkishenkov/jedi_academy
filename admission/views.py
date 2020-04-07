@@ -27,7 +27,7 @@ class CandidateList(ListView):
 
 class CandidateCreate(CreateView):
     model = Candidate
-    fields = ['name', 'planet']
+    fields = ['name', 'planet', 'photo']
     success_url = reverse_lazy('exam_new', args=[3])
 
     def post(self, request, *args, **kwargs):
@@ -50,7 +50,7 @@ class ExamCreate(CreateView):
         context = super().get_context_data(**kwargs)
         candidate = Candidate.objects.get(pk=self.kwargs['candidate_pk'])
         context['form'].fields['candidate'].initial = candidate.pk
-        question_pk = randbelow(Question.objects.all().count()+1)+1
+        question_pk = randbelow(Question.objects.all().count())+1
         question = Question.objects.get(pk=question_pk)
         context['form'].fields['question'].initial = question.pk
         context['form'].fields['order_code'].initial = '0001'
@@ -100,5 +100,4 @@ class CandidateUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'].fields['jedi'].initial = self.kwargs['pk']
         return context

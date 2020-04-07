@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 
 # Create your models here.
@@ -15,10 +17,22 @@ class Jedi(models.Model):
     def __str__(self):
         return self.name
 
+def path_and_rename(path):
+    def inner(instance, filename):
+        ext = filename.split('.')[-1]
+        if instance.pk:
+            filename = '{}.{}'.format(instance.pk, ext)
+        else:
+            from uuid import uuid4
+            filename = '{}.{}'.format(uuid4().hex, ext)
+        return os.path.join(path, filename)
+    return inner
+
 class Candidate(models.Model):
     name = models.CharField(max_length=255)
-    planet = models.ForeignKey(Planet, on_delete=models.CASCADE, related_name='cadnidates')
+    planet = models.ForeignKey(Planet, on_delete=models.CASCADE, related_name='candidates')
     jedi = models.ForeignKey(Jedi, on_delete=models.CASCADE, related_name='candidates', null=True, blank=True)
+    photo = models.ImageField(upload_to=path_and_rename('candidates'), null=True, blank=True)
 
     def __str__(self):
         return self.name
